@@ -1,0 +1,34 @@
+import requests
+
+def evaluate_expression(expression):
+    url = 'http://api.mathjs.org/v4/'
+    params = {
+        'expression': expression
+    }
+    
+    response = requests.get(url, params=params)
+    
+    if response.status_code == 200:
+        answer = response.text
+        return answer
+    else:
+        return None
+
+def main():
+    expressions = [
+        '2 * 4 * 4',
+        '5 / (7 - 5)',
+        'sqrt(5^2 - 4^2)',
+        'sqrt(-3^2 - 4^2)'
+    ]
+    
+    for expression in expressions:
+        answer = evaluate_expression(expression)
+        
+        if answer is not None:
+            print(f"{expression} = {result}")
+        else:
+            print(f"Failed to evaluate {expression}")
+
+if __name__ == '__main__':
+    main()
