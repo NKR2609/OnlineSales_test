@@ -1,0 +1,44 @@
+import random
+
+def generate_outcome(outcomes):
+    
+    random_value = random.uniform(0, 1)
+    
+    cumulative_probability = 0.0
+    for outcome, prob in outcomes.items():
+        cumulative_probability += prob
+        
+        
+        if random_value <= cumulative_probability:
+            return outcome
+
+    
+    return None
+
+def generate_occurrences(outcomes, number_occurrences):
+    occurrence_counts = {outcome: 0 for outcome in outcomes}
+    
+    for _ in range(number_occurrences):
+        outcome = generate_outcome(outcomes)
+        occurrence_counts[outcome] += 1
+    
+    return occurrence_counts
+
+def main():
+    outcomes = {
+        1: 15,  # Head
+        2: 35   # Tail
+    }
+    
+    number_occurrences = 1000
+    
+    occurrence_counts = generate_occurrences(outcomes, number_occurrences)
+    
+    for outcome, count in occurrence_counts.items():
+        print(f"{number_occurrences} times, {outcome} appeared {count} times")
+        
+if __name__ == '__main__':
+    main()
+    
+#modify the outcomes dictionary with your specific outcomes, 
+#and their corresponding probabilities.
